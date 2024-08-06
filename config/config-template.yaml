@@ -4,3 +4,17 @@ LOG:
   LOG_MAX_BYTES: 1000000
   LOG_RETENTION_COUNT: 5
   LOG_FORMAT: '%(asctime)s %(levelname)-8s %(process)d %(name)s :: %(message)s'
+
+EMAIL:
+  ENABLED: false # true/false
+  HOST:
+  PORT:
+  FROM_ADDR: app-no-reply@localhost.com
+  ADMIN_EMAIL: # Accepts list
+    - user@localhost.com
+  NOTIFY_SUBJECT: 
+  USERNAME: 
+  PASSWORD: 
+  SECURE_KEYFILE: # Path to keyfile
+  SECURE_CERT: # Path to certificate
+  TIMEOUT: # Seconds

@@ -1,3 +1,9 @@
+# Exceptions
+!config-template.yaml
+
+# Ignored
 .venv
 __pycache__
 *.log
+*.yaml
+
