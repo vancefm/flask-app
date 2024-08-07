@@ -2,11 +2,15 @@ from flask import Flask
 from flask.logging import default_handler
 from logging.handlers import RotatingFileHandler, SMTPHandler
 import logging
+from util.request_filter import RequestIdFilter
 
 
 class ConfigLogger():
 
     def _configure_default_logger(self, app:Flask):
+
+        app.logger.addFilter(RequestIdFilter())
+
         # Set debug mode, per config
         if app.config['LOG']['LOG_DEBUG_MODE']:
             app.logger.setLevel(logging.DEBUG)

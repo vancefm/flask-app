@@ -12,6 +12,7 @@ def hello_world():
     app.logger.info("Root route accessed.")
     app.logger.debug("Root route debug accessed.")
     app.logger.error("Root route error accessed.")
+    app.logger.warning("Root route warning accessed.")
     return "<p>Flask App loaded.</p>"
 
 if __name__ == '__main__':

@@ -1,9 +1,10 @@
 LOG:
-  DEBUG_MODE: true
+  LOG_DEBUG_MODE: true
   LOG_PATH: logs/app.log
+  ERROR_LOG_PATH: logs/error.log
   LOG_MAX_BYTES: 1000000
   LOG_RETENTION_COUNT: 5
-  LOG_FORMAT: '%(asctime)s %(levelname)-8s %(process)d %(name)s :: %(message)s'
+  LOG_FORMAT: '%(asctime)s %(levelname)-7s %(process)d %(request_id)s %(module)s :: %(funcName)s :: %(message)s'
 
 EMAIL:
   ENABLED: false # true/false
