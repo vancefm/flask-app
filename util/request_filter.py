@@ -1,3 +1,13 @@
+"""
+This module provides the mechanism for generating a request id which can be
+used for log enteries. A RequestIdFilter logging filter can be added to an
+existing logger.
+
+The request id is a uuid4 (Universally Unique ID, version 4) which is based
+off of a 128 bit random number. There is the possibility for id collisions, however that
+number is incredibly small. 2^122 bits are used for random generation. 
+"""
+
 import uuid
 import logging
 import flask
