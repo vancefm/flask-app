@@ -1,7 +1,10 @@
 
-Windows virtual environment activation from cmd prompt: `.venv\Scripts\activate.bat`
+Using Python virtual environment:
+1. Create virtual environment: `python -m venv .venv`
+2. Activate environment, from command prompt: `.venv\Scripts\activate.bat`
+    - Or from Powershell: `.venv\Scripts\Activate.ps1`
 
-To install run: `pip install -r requirements.txt`
+3. To install run: `pip install -r requirements.txt`
 
 To run app: `flask run` or `flask run --debug`
 
