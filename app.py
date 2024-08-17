@@ -1,6 +1,6 @@
-from flask import Flask, request
-from util.config_loader import ConfigLoader
-from util.errors.error_handler import handle_errors, CustomException
+from flask import request
+from utils.config_loader import ConfigLoader
+from utils.errors.error_handler import handle_errors, CustomException
 
 app = ConfigLoader.create_app()
 
@@ -16,10 +16,12 @@ def root_route():
     app.logger.warning("Root route warning accessed.")
     return "<p>Flask App loaded.</p>"
 
-@handle_errors
+
 @app.route("/err")
+@handle_errors
 def error_route():
-    raise CustomException("Message stuff", ['Error1', 'Error2'])
+    raise CustomException("Message stuff")
+
 
 if __name__ == '__main__':
     app.run()
