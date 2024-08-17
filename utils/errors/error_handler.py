@@ -10,10 +10,10 @@ def handle_errors(func):
         try:
             return func(*args, **kwargs)
         except CustomException as e:
-            current_app.logger.error("Custom Exception received")
+            current_app.logger.error(f"Custom Exception: {e}")
             return error_page()
         except Exception as e:
-            current_app.logger.error("Generic Exception received")
+            current_app.logger.error(f"Generic Exception: {e}")
     return error_wrapper
 
 @error_blueprint.errorhandler(CustomException)
