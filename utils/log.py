@@ -2,7 +2,7 @@ from flask import Flask
 from flask.logging import default_handler
 from logging.handlers import RotatingFileHandler, SMTPHandler
 import logging
-from util.request_filter import RequestIdFilter
+from utils.request_filter import RequestIdFilter
 
 
 class ConfigLogger():

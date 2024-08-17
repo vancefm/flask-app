@@ -1,6 +1,6 @@
 import unittest
 from flask import current_app
-from util.config_loader import load_config_from_yaml
+from utils.config_loader import load_config_from_yaml
 
 class ConfigLoaderTest(unittest.TestCase):
 

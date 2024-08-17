@@ -1,7 +1,7 @@
 import yaml
 import platform
 from flask import Flask
-from util.log import ConfigLogger
+from utils.log import ConfigLogger
 
 class ConfigLoader():
 

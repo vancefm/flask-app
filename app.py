@@ -1,6 +1,6 @@
 from flask import Flask, request
 from util.config_loader import ConfigLoader
-from util.error_handler import handle_errors, CustomException
+from util.errors.error_handler import handle_errors, CustomException
 
 app = ConfigLoader.create_app()
 
