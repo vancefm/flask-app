@@ -2,7 +2,7 @@ import yaml
 import platform
 from flask import Flask
 from utils.log import ConfigLogger
-from utils.errors.error_handler import error_blueprint
+from routes.home import home_blueprint
 
 class ConfigLoader():
 
@@ -27,13 +27,13 @@ class ConfigLoader():
         app.config.update(config_data)
         app.config.update(custom_config)
 
-    def _load_blueprint_config(app:Flask):
+    def _load_blueprints(app:Flask):
         """Loads Flask blueprints
 
         Args:
             app (Flask): The current Flask app
         """
-        app.register_blueprint(error_blueprint)
+        app.register_blueprint(home_blueprint)
 
 
     @staticmethod
@@ -42,6 +42,6 @@ class ConfigLoader():
         ConfigLoader._load_config_from_yaml(app)
         ConfigLogger.configure_loggers(app)
         app.logger.info(f"Config loaded: {app.config.get("CUSTOM_CONFIG_PATH")}")
-        ConfigLoader._load_blueprint_config(app)
+        ConfigLoader._load_blueprints(app)
         app.logger.info("Blueprints loaded.") 
         return app
