@@ -19,3 +19,6 @@ EMAIL:
   SECURE_KEYFILE: # Path to keyfile
   SECURE_CERT: # Path to certificate
   TIMEOUT: # Seconds
+
+DATA:
+  DATA_IMPORT_PATH: data/test_bank_data.csv # CSV data

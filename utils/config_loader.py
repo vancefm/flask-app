@@ -2,7 +2,7 @@ import yaml
 import platform
 from flask import Flask
 from utils.log import ConfigLogger
-from utils.errors.error_handler import error_blueprint
+from utils.data_import import DataImporter
 
 class ConfigLoader():
 
@@ -33,7 +33,8 @@ class ConfigLoader():
         Args:
             app (Flask): The current Flask app
         """
-        app.register_blueprint(error_blueprint)
+        pass
+        #app.register_blueprint(error_blueprint)
 
 
     @staticmethod
@@ -42,6 +43,10 @@ class ConfigLoader():
         ConfigLoader._load_config_from_yaml(app)
         ConfigLogger.configure_loggers(app)
         app.logger.info(f"Config loaded: {app.config.get("CUSTOM_CONFIG_PATH")}")
-        ConfigLoader._load_blueprint_config(app)
-        app.logger.info("Blueprints loaded.") 
+        # ConfigLoader._load_blueprint_config(app)
+        # app.logger.info("Blueprints loaded.")
+
+        with app.app_context():
+            importer = DataImporter()
+            csv_import = importer.import_csv()
         return app
