@@ -27,7 +27,7 @@ class ConfigLoader():
         app.config.update(config_data)
         app.config.update(custom_config)
 
-    def _load_blueprint_config(app:Flask):
+    def _load_blueprints(app:Flask):
         """Loads Flask blueprints
 
         Args:

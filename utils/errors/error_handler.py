@@ -1,4 +1,4 @@
-from flask import current_app, Blueprint, render_template
+from flask import current_app, render_template
 from functools import wraps
 from utils.errors.custom_exception import CustomException
 
