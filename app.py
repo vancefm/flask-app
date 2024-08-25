@@ -1,7 +1,7 @@
 from flask import current_app, request, render_template
 from utils.errors.error_handler import handle_errors
 from utils.config_loader import ConfigLoader
-from utils.errors.custom_exception import CustomException
+from utils.data_import import DataImporter
 
 
 app = ConfigLoader.create_app()
@@ -23,13 +23,13 @@ def root_route():
 
     return "<p>Root route</p>"
 
-@app.errorhandler(CustomException)
-def error_page(e):
-    return "<p>Root route error: custom</p>", 500
-
-@app.errorhandler(Exception)
-def error_page(e):
-    return "<p>Root route error</p>", 500
+@app.route("/transactions")
+#@handle_errors
+def transactions_page():
+    print(app.template_folder)
+    importer = DataImporter()
+    transaction_list = importer.import_csv()
+    return render_template("transaction_list.html", transactions_list=transaction_list)
 
 if __name__ == '__main__':
     app.run()

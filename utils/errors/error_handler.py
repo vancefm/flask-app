@@ -14,3 +14,11 @@ def handle_errors(func):
             current_app.logger.error(f"Generic Exception: {e}")
             return render_template("error.html"), 500
     return error_wrapper
+
+# @app.errorhandler(CustomException)
+# def error_page(e):
+#     return render_template("error.html"), 500
+
+# @app.errorhandler(Exception)
+# def error_page(e):
+#     return render_template("error.html"), 500

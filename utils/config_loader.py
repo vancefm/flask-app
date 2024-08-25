@@ -39,7 +39,7 @@ class ConfigLoader():
 
     @staticmethod
     def create_app():
-        app = Flask(__name__)
+        app = Flask(__name__, template_folder="../templates")
         ConfigLoader._load_config_from_yaml(app)
         ConfigLogger.configure_loggers(app)
         app.logger.info(f"Config loaded: {app.config.get("CUSTOM_CONFIG_PATH")}")
@@ -48,5 +48,6 @@ class ConfigLoader():
 
         with app.app_context():
             importer = DataImporter()
-            csv_import = importer.import_csv()
+            transaction_list = importer.import_csv()
+            #print(transaction_list)
         return app
