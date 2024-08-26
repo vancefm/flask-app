@@ -1,10 +1,12 @@
-from flask import current_app, request, render_template
+from flask import Flask, current_app, request, render_template
 from utils.errors.error_handler import handle_errors
 from utils.config_loader import ConfigLoader
-from utils.data_import import DataImporter
+from services.data_import import DataImporter
 
 
-app = ConfigLoader.create_app()
+app = Flask(__name__)
+
+ConfigLoader.create_app(app)
 
 @app.before_request
 def request_logger():
@@ -15,20 +17,14 @@ def request_logger():
 @app.route("/")
 @handle_errors
 def root_route():
-    current_app.logger.info("Root route accessed.")
-    current_app.logger.debug("Root route debug accessed.")
-    current_app.logger.warning("Root route warning accessed.")
-    current_app.logger.error("Root route error accessed.")
-    current_app.logger.critical("Root route critical accessed.")
-
-    return "<p>Root route</p>"
+    return render_template("test.html")
 
 @app.route("/transactions")
-#@handle_errors
+@handle_errors
 def transactions_page():
-    print(app.template_folder)
-    importer = DataImporter()
-    transaction_list = importer.import_csv()
+    with app.app_context():
+        importer = DataImporter()
+        transaction_list = importer.import_csv()
     return render_template("transaction_list.html", transactions_list=transaction_list)
 
 if __name__ == '__main__':

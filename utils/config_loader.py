@@ -2,11 +2,11 @@ import yaml
 import platform
 from flask import Flask
 from utils.log import ConfigLogger
-from utils.data_import import DataImporter
+from services.data_import import DataImporter
 
 class ConfigLoader():
 
-    def _load_config_from_yaml(app:Flask):
+    def _load_config_from_yaml(self, app:Flask):
         """Loads yaml config file into a Flask application. The config file
         should be named according to the hostname, and located in 'config/'
 
@@ -27,7 +27,7 @@ class ConfigLoader():
         app.config.update(config_data)
         app.config.update(custom_config)
 
-    def _load_blueprints(app:Flask):
+    def _load_blueprints(self, app:Flask):
         """Loads Flask blueprints
 
         Args:
@@ -36,18 +36,14 @@ class ConfigLoader():
         pass
         #app.register_blueprint(error_blueprint)
 
-
     @staticmethod
-    def create_app():
-        app = Flask(__name__, template_folder="../templates")
-        ConfigLoader._load_config_from_yaml(app)
-        ConfigLogger.configure_loggers(app)
-        app.logger.info(f"Config loaded: {app.config.get("CUSTOM_CONFIG_PATH")}")
-        # ConfigLoader._load_blueprint_config(app)
-        # app.logger.info("Blueprints loaded.")
+    def create_app(app:Flask):
 
-        with app.app_context():
-            importer = DataImporter()
-            transaction_list = importer.import_csv()
-            #print(transaction_list)
-        return app
+        config_loader = ConfigLoader()
+        config_logger = ConfigLogger()
+        
+        config_loader._load_config_from_yaml(app)
+        config_logger.configure_loggers(app)
+        app.logger.info(f"Config loaded: {app.config.get("CUSTOM_CONFIG_PATH")}")
+        # config_loader._load_blueprint_config(app)
+        # app.logger.info("Blueprints loaded.")
