@@ -1,10 +1,11 @@
-# Ignore exceptions
-!config-template.yaml
-!data/placeholder.txt
-
 # Ignored
 .venv
 __pycache__
 *.log
-*.yaml
+
+config/*.yaml
+!categories.yaml
+!config-template.yaml
+
 data/*.csv
+!data/placeholder.txt
