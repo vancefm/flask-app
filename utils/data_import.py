@@ -5,6 +5,9 @@ from models.transaction import Transaction
 from models.category import Category
 
 class DataImporter:
+    """Initializes with transactions from TX_IMPORT_PATH, and categories
+    from CATEGORIES_LIST_PATH
+    """
 
     def __init__(self):
         self.csv_data_path = f"{current_app.config['DATA']['TX_IMPORT_PATH']}"
@@ -35,13 +38,14 @@ class DataImporter:
                     row['Type'],
                     row['Balance']), axis=1).tolist()
             
+            current_app.logger.debug(f"Transactions imported from {self.csv_data_path}")
             pattern: str
             tx: Transaction
             for tx in self.transaction_list:
                 for pattern in self.pattern_dict:
                     if pattern in tx.description :
                         tx.category_name = self.pattern_dict.get(pattern)
-
+            current_app.logger.debug("Transactions categorized.")
             return self.transaction_list
         except Exception as e:
             current_app.logger.critical(e)
@@ -58,6 +62,7 @@ class DataImporter:
                 categories_path = current_app.config['DATA']['CATEGORIES_LIST_PATH']
                 with open(categories_path, 'r') as cat_file:
                     cat_data = yaml.safe_load(cat_file)
+                    current_app.logger.debug(f"Loaded file: {categories_path}")
 
                     # Create a list of all categories
                     cat_list = []
@@ -68,6 +73,8 @@ class DataImporter:
                             category['match_patterns'],
                             category['subcategories'])
                         cat_list.append(c)
+                    current_app.logger.debug(f"Categories imported from: {categories_path}")
+                    current_app.logger.debug(cat_list)
                 return cat_list
         except Exception as e:
             current_app.logger.critical(e)
@@ -86,7 +93,7 @@ class DataImporter:
 
                 # Get patterns for top level categories                
                 for pattern in category.match_patterns:
-                    pattern_dict.update({pattern : cat_name}) 
+                    pattern_dict.update({pattern : cat_name})
 
                 # Get patterns for sub categories
                 for sub_cat in category.subcategories:
@@ -94,4 +101,6 @@ class DataImporter:
                     for sub_pattern in sub_cat.match_patterns:
                         long_cat = f"{cat_name}:{sub_name}"
                         pattern_dict.update({sub_pattern : long_cat})
+            current_app.logger.debug("Category patterns imported.")
+            current_app.logger.debug(pattern_dict)
         return pattern_dict

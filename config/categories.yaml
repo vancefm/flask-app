@@ -2,6 +2,16 @@ Categories:
   - name: Uncategorized
     match_patterns:
     subcategories:
+
+  - name: Income
+    match_patterns:
+    subcategories:
+      - name: Salary
+        match_patterns:
+          - UNIV TX AUSTIN PAYROLL
+      - name: Other
+        match_patterns:
+
   - name: Utilities
     match_patterns:
     subcategories:
@@ -11,6 +21,7 @@ Categories:
         match_patterns:
       - name: Internet
         match_patterns:
+
   - name: Entertainment
     match_patterns:
     subcategories:
@@ -20,12 +31,27 @@ Categories:
         match_patterns:
       - name: TV
         match_patterns:
+          - Disney Plus
+          - NETFLIX.COM
+
   - name: Food
     match_patterns: 
-      - TACO BELL
     subcategories:
       - name: Groceries
         match_patterns:
           - H-E-B
       - name: Resturants
         match_patterns:
+          - TACO BELL
+          - UT COMMONS CAFE
+          - DOORDASH
+          - MCDONALD'S
+          - JACK IN THE BOX
+          - THUNDERCLOUD
+          - SHU SHUS
+          - P. TERRYS STAND
+          
+  - name: Doctor
+    match_patterns:
+      - AMY HOWARD
+    subcategories:

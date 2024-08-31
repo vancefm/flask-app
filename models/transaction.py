@@ -1,5 +1,4 @@
 
-
 class Transaction:
 
     def __init__(self, posting_date, description, amount, type, end_balance,

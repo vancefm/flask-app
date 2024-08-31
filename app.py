@@ -1,7 +1,6 @@
 from flask import Flask, current_app, request, render_template
 from utils.errors.error_handler import handle_errors
 from utils.config_loader import ConfigLoader
-from utils.data_import import DataImporter
 
 
 app = Flask(__name__)
