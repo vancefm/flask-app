@@ -1,3 +1,5 @@
+# Should be renamed categories.yaml
+
 Categories:
   - name: Uncategorized
     match_patterns:
@@ -8,7 +10,6 @@ Categories:
     subcategories:
       - name: Salary
         match_patterns:
-          - UNIV TX AUSTIN PAYROLL
       - name: Other
         match_patterns:
 
@@ -32,7 +33,7 @@ Categories:
       - name: TV
         match_patterns:
           - Disney Plus
-          - NETFLIX.COM
+          - NETFLIX
 
   - name: Food
     match_patterns: 
@@ -43,15 +44,10 @@ Categories:
       - name: Resturants
         match_patterns:
           - TACO BELL
-          - UT COMMONS CAFE
           - DOORDASH
           - MCDONALD'S
           - JACK IN THE BOX
-          - THUNDERCLOUD
-          - SHU SHUS
-          - P. TERRYS STAND
           
   - name: Doctor
     match_patterns:
-      - AMY HOWARD
     subcategories:

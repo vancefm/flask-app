@@ -4,7 +4,7 @@ __pycache__
 *.log
 
 config/*.yaml
-!categories.yaml
+!categories-template.yaml
 !config-template.yaml
 
 data/*.csv
