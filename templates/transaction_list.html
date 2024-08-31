@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<title>Test</title>
-<html>
+<html lang="en">
     <head>
+        <title>Test</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="../static/assets/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="../static/assets/bootstrap-5.3.3-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="../static/assets/app/custom-style.css">
+
+        <script>
+            function removeIsNewCheckbox(index){
+                document.getElementById('is-new-' + index).checked = false;
+            }
+        </script>
     </head>
     <header></header>
     <body>
@@ -24,15 +30,26 @@
                 </tr>
             </thead>
             <tbody>
-                {% for transaction in transactions_list %}
-                <tr>
+                {% for transaction in transaction_list %}
+                <tr id="tx-{{loop.index}}">
                     <td>{{transaction.posting_date}}</td>
                     <td>{{transaction.description}}</td>
-                    <td>{{transaction.amount}}</td>
+                    <td>{{transaction.amount}}</td> 
                     <td>{{transaction.type}}</td>
                     <td>{{transaction.end_balance}}</td>
-                    <td>{{transaction.is_new}}</td>
-                    <td>{{transaction.category_name}}</td>
+                    <td><input type="checkbox" id="is-new-{{loop.index}}" {% if transaction.is_new %}checked{% endif %}></td>
+                    <td>
+                        <select id="categories-dropdown-{{loop.index}}" onchange="removeIsNewCheckbox({{loop.index}})">
+                            <option value="{{transaction.category_name}}">{{transaction.category_name}}</option>
+                            
+                            {% for primary_category in category_list %}
+                                <option value="{{primary_category.name}}">{{primary_category.name}}</option>
+
+                                {% for sub_category in primary_category.subcategories %}
+                                    <option value="{{sub_category}}">{{primary_category.name}}: {{sub_category.name}}</option>
+                                {% endfor %}
+                            {% endfor %}
+                        </select></td>
                 </tr>
                 {% endfor %}
             </tbody>

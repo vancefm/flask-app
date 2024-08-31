@@ -6,3 +6,7 @@ th, td {
     border: 1px solid grey;
     padding: 5px;
 }
+
+select {
+    width: 100%;
+}

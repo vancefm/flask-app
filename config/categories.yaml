@@ -1,0 +1,31 @@
+Categories:
+  - name: Uncategorized
+    match_patterns:
+    subcategories:
+  - name: Utilities
+    match_patterns:
+    subcategories:
+      - name: Electric
+        match_patterns:
+      - name: Water
+        match_patterns:
+      - name: Internet
+        match_patterns:
+  - name: Entertainment
+    match_patterns:
+    subcategories:
+      - name: Music
+        match_patterns:
+      - name: Games
+        match_patterns:
+      - name: TV
+        match_patterns:
+  - name: Food
+    match_patterns: 
+      - TACO BELL
+    subcategories:
+      - name: Groceries
+        match_patterns:
+          - H-E-B
+      - name: Resturants
+        match_patterns:

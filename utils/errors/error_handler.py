@@ -1,6 +1,7 @@
 from flask import current_app, render_template
 from functools import wraps
 from utils.errors.custom_exception import CustomException
+from traceback import extract_tb
 
 def handle_errors(func):
     @wraps(func)
@@ -14,11 +15,3 @@ def handle_errors(func):
             current_app.logger.error(f"Generic Exception: {e}")
             return render_template("error.html"), 500
     return error_wrapper
-
-# @app.errorhandler(CustomException)
-# def error_page(e):
-#     return render_template("error.html"), 500
-
-# @app.errorhandler(Exception)
-# def error_page(e):
-#     return render_template("error.html"), 500
