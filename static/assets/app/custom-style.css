@@ -1,12 +1,34 @@
+#page-content-div {
+    width: fit-content;
+    height: 60dvh;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    border: 2px solid #ffffffbe;
+}
+
+#tx-table-div {
+    overflow: auto;
+    padding: 10px;
+    
+}
+
+body {
+    background-color: #818080;
+    color: #ffffffbe;
+}
+
 table {
     border-collapse: collapse;
+    overflow: auto;
 }
 
 th, td {
-    border: 1px solid grey;
+    border: 1px solid #ffffffbe;
     padding: 5px;
 }
 
 select {
     width: 100%;
 }
+

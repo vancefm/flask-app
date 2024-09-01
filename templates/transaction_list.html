@@ -17,43 +17,52 @@
     <header></header>
     <body>
         {% block content%}
-        <table id="transactions">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Type</th>
-                    <th>Balance</th>
-                    <th>New</th>
-                    <th>Category</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for transaction in transaction_list %}
-                <tr id="tx-{{loop.index}}">
-                    <td>{{transaction.posting_date}}</td>
-                    <td>{{transaction.description}}</td>
-                    <td>{{transaction.amount}}</td> 
-                    <td>{{transaction.type}}</td>
-                    <td>{{transaction.end_balance}}</td>
-                    <td><input type="checkbox" id="is-new-{{loop.index}}" {% if transaction.is_new %}checked{% endif %}></td>
-                    <td>
-                        <select id="categories-dropdown-{{loop.index}}" onchange="removeIsNewCheckbox({{loop.index}})">
-                            <option value="{{transaction.category_name}}">{{transaction.category_name}}</option>
-                            
-                            {% for primary_category in category_list %}
-                                <option value="{{primary_category.name}}">{{primary_category.name}}</option>
+        <div id="page-content-div">
+            <div id="tx-table-div">
+                <table id="transactions">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>New</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Balance</th>
 
-                                {% for sub_category in primary_category.subcategories %}
-                                    <option value="{{sub_category}}">{{primary_category.name}}: {{sub_category.name}}</option>
-                                {% endfor %}
-                            {% endfor %}
-                        </select></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in transaction_list %}
+                        <tr id="tx-{{loop.index}}">
+                            <td>{{transaction.posting_date}}</td>
+                            <td><input type="checkbox" id="is-new-{{loop.index}}" {% if transaction.is_new %}checked{% endif %}></td>
+                            <td>
+                                <select id="categories-dropdown-{{loop.index}}" onchange="removeIsNewCheckbox({{loop.index}})">
+                                    <option value="{{transaction.category_name}}">{{transaction.category_name}}</option>
+                                    
+                                    {% for primary_category in category_list %}
+                                        <option value="{{primary_category.name}}">{{primary_category.name}}</option>
+        
+                                        {% for sub_category in primary_category.subcategories %}
+                                            <option value="{{sub_category}}">{{primary_category.name}}: {{sub_category.name}}</option>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td>{{transaction.description}}</td>
+                            <td>{{transaction.amount}}</td> 
+                            <td>{{transaction.type}}</td>
+                            <td>{{transaction.end_balance}}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        
         {% endblock %}
     </body>
 </html>

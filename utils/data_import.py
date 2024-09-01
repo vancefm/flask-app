@@ -2,7 +2,7 @@ from flask import current_app
 import pandas
 import yaml
 from models.transaction import Transaction
-from models.category import Category
+from models.category import Category, SubCategory
 
 class DataImporter:
     """Initializes with transactions from TX_IMPORT_PATH, and categories
@@ -96,10 +96,11 @@ class DataImporter:
                     pattern_dict.update({pattern : cat_name})
 
                 # Get patterns for sub categories
+                sub_cat: SubCategory
                 for sub_cat in category.subcategories:
                     sub_name = sub_cat.name
                     for sub_pattern in sub_cat.match_patterns:
-                        long_cat = f"{cat_name}:{sub_name}"
+                        long_cat = f"{cat_name}: {sub_name}"
                         pattern_dict.update({sub_pattern : long_cat})
             current_app.logger.debug("Category patterns imported.")
             current_app.logger.debug(pattern_dict)
