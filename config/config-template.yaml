@@ -21,5 +21,12 @@ EMAIL:
   TIMEOUT: # Seconds
 
 DATA:
-  TX_IMPORT_PATH: data/test_bank_data.csv # CSV data
+  TX_IMPORT_PATH: #data/file_import/test_bank_data.csv # CSV data
   CATEGORIES_LIST_PATH: config/categories.yaml # YAML categories config file
+
+DATABASE:
+  HOST: 
+  PORT: 
+  DB_NAME: 
+  USERNAME: 
+  PASSWORD: 

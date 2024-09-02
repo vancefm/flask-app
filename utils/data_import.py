@@ -1,8 +1,8 @@
 from flask import current_app
 import pandas
 import yaml
-from models.transaction import Transaction
-from models.category import Category, SubCategory
+from data.models.transaction import Transaction
+from data.models.category import Category
 
 class DataImporter:
     """Initializes with transactions from TX_IMPORT_PATH, and categories
