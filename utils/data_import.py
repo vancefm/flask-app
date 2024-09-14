@@ -1,8 +1,8 @@
 from flask import current_app
 import pandas
 import yaml
-from data.models.transaction import Transaction
 from data.models.category import Category
+from data.models.transaction import Transaction
 
 class DataImporter:
     """Initializes with transactions from TX_IMPORT_PATH, and categories
@@ -44,7 +44,7 @@ class DataImporter:
             for tx in self.transaction_list:
                 for pattern in self.pattern_dict:
                     if pattern in tx.description :
-                        tx.category_name = self.pattern_dict.get(pattern)
+                        tx.category_id = self.pattern_dict.get(pattern)
             current_app.logger.debug("Transactions categorized.")
             return self.transaction_list
         except Exception as e:

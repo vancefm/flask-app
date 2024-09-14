@@ -5,14 +5,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="../static/assets/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="../static/assets/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/assets/bootstrap-5.3.3-dist/css/bootstrap-grid.min.css">
         <link rel="stylesheet" href="../static/assets/app/custom-style.css">
 
         <script>
-            function removeIsNewCheckbox(index){
+            function uncheckIsNewBox(index){
                 document.getElementById('is-new-' + index).checked = false;
             }
         </script>
+        
     </head>
     <header></header>
     <body>
@@ -33,27 +34,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for transaction in transaction_list %}
+                        {% for transaction_id, transaction_data in transaction_dict.items() %}
                         <tr id="tx-{{loop.index}}">
-                            <td>{{transaction.posting_date}}</td>
-                            <td><input type="checkbox" id="is-new-{{loop.index}}" {% if transaction.is_new %}checked{% endif %}></td>
+                            <td>{{transaction_data.posting_date}}</td>
+                            <td><input type="checkbox" id="is-new-{{loop.index}}" {% if transaction_data.is_new %}checked{% endif %}></td>
                             <td>
-                                <select id="categories-dropdown-{{loop.index}}" onchange="removeIsNewCheckbox({{loop.index}})">
-                                    <option value="{{transaction.category_name}}">{{transaction.category_name}}</option>
+                                <select id="categories-dropdown-{{loop.index}}" onchange="uncheckIsNewBox({{loop.index}})">
+                                    {% set tx_cid = transaction_data.category_id %}
+                                    {% if tx_cid in category_dict %}
+                                        {% set ctg_name = category_dict[tx_cid].category_name %}
+                                            <option value="{{ctg_name}}">{{ctg_name}}</option>
+                                    {% else %}
+                                        <option value="">Unknown Category</option>
+                                    {% endif %}
                                     
-                                    {% for primary_category in category_list %}
-                                        <option value="{{primary_category.name}}">{{primary_category.name}}</option>
-        
-                                        {% for sub_category in primary_category.subcategories %}
-                                            <option value="{{sub_category}}">{{primary_category.name}}: {{sub_category.name}}</option>
-                                        {% endfor %}
+                                    {% for category in category_list %}
+                                        <option value="{{category.category_name}}">{{category.category_name}}</option>
                                     {% endfor %}
                                 </select>
                             </td>
-                            <td>{{transaction.description}}</td>
-                            <td>{{transaction.amount}}</td> 
-                            <td>{{transaction.type}}</td>
-                            <td>{{transaction.end_balance}}</td>
+                            <td>{{transaction_data.description}}</td>
+                            <td>{{transaction_data.amount}}</td> 
+                            <td>{{transaction_data.type}}</td>
+                            <td>{{transaction_data.end_balance}}</td>
                             
                         </tr>
                         {% endfor %}

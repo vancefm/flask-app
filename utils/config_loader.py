@@ -2,8 +2,10 @@ import yaml
 import platform
 from flask import Flask
 from utils.log import ConfigLogger
+from data.models import db
 from routes.transactions import transactions_blueprint
-from data.models.init import db
+from routes.categories import categories_blueprint
+from routes.importer import importer_blueprint
 
 class ConfigLoader():
 
@@ -37,6 +39,8 @@ class ConfigLoader():
         """
 
         app.register_blueprint(transactions_blueprint)
+        app.register_blueprint(categories_blueprint)
+        app.register_blueprint(importer_blueprint)
         app.logger.info("Blueprints loaded.")
 
 
@@ -59,7 +63,9 @@ class ConfigLoader():
             app.logger.info("Database initiated.")
 
     @staticmethod
-    def create_app(app:Flask):
+    def load_app():
+
+        app = Flask(__name__, template_folder='../templates')
 
         config_loader = ConfigLoader()
         config_logger = ConfigLogger()
@@ -72,5 +78,7 @@ class ConfigLoader():
 
         config_loader._load_sqlalchemy_db(app)
 
-        app.logger.info("Loading config done.")
+        app.logger.info(f"Config loaded: {app.config['CUSTOM_CONFIG_PATH']}")
+
+        return app
         

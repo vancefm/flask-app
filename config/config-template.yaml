@@ -1,3 +1,6 @@
+# Flask config
+TEMPLATES_AUTO_RELOAD: True
+
 LOG:
   LOG_DEBUG_MODE: true
   LOG_PATH: logs/app.log
@@ -23,10 +26,16 @@ EMAIL:
 DATA:
   TX_IMPORT_PATH: #data/file_import/test_bank_data.csv # CSV data
   CATEGORIES_LIST_PATH: config/categories.yaml # YAML categories config file
-
+  CSV_HEADERS: # Do not change. List of csv headers required for TX_IMPORT_PATH
+    - Posting Date
+    - Description
+    - Amount
+    - Type
+    - Balance
+    
 DATABASE:
   HOST: 
   PORT: 
-  DB_NAME: 
+  DB_NAME: financinator
   USERNAME: 
   PASSWORD: 

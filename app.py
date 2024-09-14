@@ -1,11 +1,9 @@
-from flask import Flask, current_app, request, render_template
+from flask import current_app, request, render_template
 from utils.errors.error_handler import handle_errors
 from utils.config_loader import ConfigLoader
 
 
-app = Flask(__name__)
-
-ConfigLoader.create_app(app)
+app = ConfigLoader.load_app()
 
 @app.before_request
 def request_logger():
