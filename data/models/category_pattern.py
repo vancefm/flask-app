@@ -1,5 +1,4 @@
 from data.models import db
-from sqlalchemy.schema import UniqueConstraint
 
 class CategoryPattern(db.Model):
 

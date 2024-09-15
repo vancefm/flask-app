@@ -1,6 +1,5 @@
 from datetime import datetime
 from data.models import db
-from decimal import Decimal, ROUND_DOWN
 
 class Transaction(db.Model):
 

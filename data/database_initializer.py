@@ -52,7 +52,6 @@ def process_parent_category(cat_name):
         current_app.logger.debug(f"Parent category {cat_name} does not exist yet")
         categories_service.save_category(Category(category_name=cat_name, parent_id=None))
         current_app.logger.debug(f"Successfully added parent category {cat_name}")
-        cat_parent_id = categories_service.get_parent_id_from_parent_name(cat_name)
     else:
         current_app.logger.debug(f"Skipping parent category, {cat_name} already exists")
 
