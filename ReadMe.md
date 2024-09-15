@@ -9,9 +9,9 @@ Using Python virtual environment:
 To run app: `flask run` or `flask run --debug`
 
 Requires a config file `<hostname>.yaml`. Use `config/config-template.yaml` as an example.
+Requires a categories file `categories.yaml`. Use `config/categories-template.yaml` as an example.
 
 Run tests: `python -m unittest discover -s tests --verbose`
 
 Using Bootstrap 5.3.3
-
-Reads data
+Using Flask SQlAlchemy/MySQL database

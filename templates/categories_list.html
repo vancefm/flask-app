@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Test</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="../static/assets/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../static/assets/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/assets/app/custom-style.css">
+
+    </head>
+    <header></header>
+    <body>
+        {% block content%}
+        <div id="page-content-div">
+            <div id="cg-table-div">
+                <table id="categories">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parent Category ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in category_list %}
+                        <tr id="cg-{{loop.index}}">
+                            <td>{{category.category_name}}</td>
+                            <td>{{category.parent_id}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        
+        {% endblock %}
+    </body>
+</html>
