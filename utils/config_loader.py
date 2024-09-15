@@ -66,7 +66,9 @@ class ConfigLoader():
     @staticmethod
     def load_app():
 
-        app = Flask(__name__, template_folder='../templates')
+        app = Flask(__name__, 
+                    template_folder='../templates', 
+                    static_folder="../static")
 
         config_loader = ConfigLoader()
         config_logger = ConfigLogger()

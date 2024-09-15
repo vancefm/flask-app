@@ -5,9 +5,10 @@
     <title>Test</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="../static/assets/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../static/assets/bootstrap-5.3.3-dist/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="../static/assets/app/custom-style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap-5.3.3-dist/css/bootstrap-grid.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/app/custom-style.css') }}">
+
+    <script src="{{ url_for('static', filename='assets/bootstrap-5.3.3-dist/js/bootstrap.min.js') }}"></script>
 
     <title>{% block title %}Financinator{% endblock %}</title>
 </head>
