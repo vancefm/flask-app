@@ -7,5 +7,5 @@ config/*.yaml
 !categories-template.yaml
 !config-template.yaml
 
-data/*.csv
+data/file_import/*.csv
 !data/placeholder.txt
