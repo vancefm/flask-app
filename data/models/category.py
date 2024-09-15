@@ -1,4 +1,5 @@
 from data.models import db
+from sqlalchemy.schema import UniqueConstraint
 
 class Category(db.Model):
 
@@ -16,12 +17,14 @@ class Category(db.Model):
     ctg_transaction = db.relationship('Transaction', back_populates='tx_category')
     ctg_category_pattern = db.relationship('CategoryPattern', back_populates='cptrn_category')
 
-    def __init__(self, id, category_name, parent_id):
-        self.id = id
+    # Unique constraint for category_name:parent_id combo
+    __table_args__ = (UniqueConstraint('category_name', 'parent_id', name='_category_parent_uc'),)
+
+    def __init__(self, category_name, parent_id=None):
         self.category_name = category_name
         self.parent_id = parent_id
 
     def __repr__(self):
         return f"<Category(id={self.id}, "\
             f"category_name='{self.category_name}', "\
-            f"parent_id={self.parent_id})>"
+            f"parent_id={self.parent_id})>" 

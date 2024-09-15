@@ -3,6 +3,7 @@ import platform
 from flask import Flask
 from utils.log import ConfigLogger
 from data.models import db
+from data.database_initializer import initialize_database
 from routes.transactions import transactions_blueprint
 from routes.categories import categories_blueprint
 from routes.importer import importer_blueprint
@@ -78,7 +79,10 @@ class ConfigLoader():
 
         config_loader._load_sqlalchemy_db(app)
 
-        app.logger.info(f"Config loaded: {app.config['CUSTOM_CONFIG_PATH']}")
+        with app.app_context():
+            initialize_database()
+
+        app.logger.info(f"App config load complete: {app.config['CUSTOM_CONFIG_PATH']}")
 
         return app
         
