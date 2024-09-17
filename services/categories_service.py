@@ -2,11 +2,28 @@ from flask import current_app
 from data.models import db, Category
 from sqlalchemy import select
 
-def get_all_categories_to_dict():
-    with current_app.app_context():    
-        cg_list = db.session.execute(select(Category)).scalars().all()
-        cg_dict = {cg.id: cg for cg in cg_list}
-        return cg_dict 
+def get_categories_with_parent_names():
+    """Returns a list of dictionaries of all Categories with parent names
+
+    Returns:
+        list(Category): A list of categories
+    """
+    with current_app.app_context():
+
+        # Perform a query with joinedload to include parent relationship
+        categories = Category.query.options(db.joinedload(Category.parent)).all()
+        
+        # Format the category names
+        formatted_categories = [
+            {
+                'id': category.id,
+                'category_name': f"{category.parent.category_name}: {category.category_name}" if category.parent else category.category_name
+            }
+            for category in categories
+        ]
+        
+        sorted_categories = sorted(formatted_categories, key=lambda x: x['category_name'])
+        return sorted_categories
 
 
 def get_parent_by_name(name: str):

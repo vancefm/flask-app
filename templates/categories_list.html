@@ -18,14 +18,12 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Parent Category ID</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for category in category_list %}
                         <tr id="cg-{{loop.index}}">
                             <td>{{category.category_name}}</td>
-                            <td>{{category.parent_id}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Financinator - Import{% endblock %}
+{% block head %}
+    {{ super() }}
+    <script>
+        function uncheckIsNewBox(index){
+            document.getElementById('is-new-' + index).checked = false;
+        }
+    </script>
+{% endblock %}
+
+{% block title %}Transactions{% endblock %}
 
     {% block content%}
         <div id="page-content-div">
@@ -27,15 +36,14 @@
                                 <td>{{transaction_data.posting_date}}</td>
                                 <td><input type="checkbox" id="is-new-{{loop.index}}" {% if transaction_data.is_new %}checked{% endif %}></td>
                                 <td>
-                                    <select id="categories-dropdown-{{loop.index}}" onchange="uncheckIsNewBox({{loop.index}})">
-                                        {% set tx_cid = transaction_data.category_id %}
-                                        {% if tx_cid in category_dict %}
-                                            {% set ctg_name = category_dict[tx_cid].category_name %}
-                                                <option value="{{ctg_name}}">{{ctg_name}}</option>
-                                        {% else %}
-                                            <option value="">Unknown Category</option>
-                                        {% endif %}
-                                        
+                                    <select id="categories-dropdown-{{loop.index}}" onchange="uncheckIsNewBox({{ loop.index }})">
+                                        {% set tx_cat_id = transaction_data.category_id %}
+                                        {% for category in category_list %}
+                                            {% if category.id == tx_cat_id %}
+                                                <option value="{{category.category_name}}">{{category.category_name}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+
                                         {% for category in category_list %}
                                             <option value="{{category.category_name}}">{{category.category_name}}</option>
                                         {% endfor %}
