@@ -1,53 +1,84 @@
-# Should be renamed categories.yaml
+# Categories may be a depth of one. IE. Parent -> Child
+# This file should be renamed categories.yaml
 
 Categories:
   - name: Uncategorized
-    match_patterns:
-    subcategories:
-
+    parent_name:
+    match_pattern:
+  
+  ## Income
   - name: Income
-    match_patterns:
-    subcategories:
-      - name: Salary
-        match_patterns:
-      - name: Other
-        match_patterns:
+    parent_name:
+    match_pattern:
 
+  - name: Salary
+    parent_name: Income
+    match_pattern:
+      - My Job
+
+  - name: Other
+    parent_name: Income
+    match_pattern:
+
+  ## Utilities
   - name: Utilities
-    match_patterns:
-    subcategories:
-      - name: Electric
-        match_patterns:
-      - name: Water
-        match_patterns:
-      - name: Internet
-        match_patterns:
+    parent_name: 
+    match_pattern:
 
+  - name: Electric
+    parent_name: Utilities
+    match_pattern:
+
+  - name: Water
+    parent_name: Utilities
+    match_pattern:
+
+  - name: Internet
+    parent_name: Utilities
+    match_pattern:
+
+  ## Entertainment
   - name: Entertainment
-    match_patterns:
-    subcategories:
-      - name: Music
-        match_patterns:
-      - name: Games
-        match_patterns:
-      - name: TV
-        match_patterns:
-          - Disney Plus
-          - NETFLIX
+    parent_name: 
+    match_pattern:
 
+  - name: Music
+    parent_name: Entertainment
+    match_pattern:
+
+  - name: Games
+    parent_name: Entertainment
+    match_pattern:
+
+  - name: TV
+    parent_name: Entertainment
+    match_pattern:
+      - HULU
+      - NETFLIX.COM
+
+  ## Food
   - name: Food
-    match_patterns: 
-    subcategories:
-      - name: Groceries
-        match_patterns:
-          - H-E-B
-      - name: Resturants
-        match_patterns:
-          - TACO BELL
-          - DOORDASH
-          - MCDONALD'S
-          - JACK IN THE BOX
-          
+    parent_name:
+    match_pattern: 
+
+  - name: Groceries
+    parent_name: Food
+    match_pattern:
+      - Walmart
+
+  - name: Resturants
+    parent_name: Food
+    match_pattern:
+      - TACO BELL
+      - MCDONALD'S
+      - JACK IN THE BOX
+
+  ## Health
+  - name: Health
+    parent_name:
+    match_pattern:
+
   - name: Doctor
-    match_patterns:
-    subcategories:
+    parent_name: Health
+    match_pattern:
+      - Dr. Doc

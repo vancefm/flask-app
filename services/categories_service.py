@@ -1,8 +1,9 @@
 from flask import current_app
 from data.models import db, Category
 from sqlalchemy import select
+from typing import List, Dict
 
-def get_categories_with_parent_names():
+def get_categories_with_parent_names() -> List[Dict]:
     """Returns a list of dictionaries of all Categories with parent names
 
     Returns:
@@ -25,25 +26,7 @@ def get_categories_with_parent_names():
         sorted_categories = sorted(formatted_categories, key=lambda x: x['category_name'])
         return sorted_categories
 
-
-def get_parent_by_name(name: str):
-    """Returns a parent category by name.
-
-    Parent categories are the highest level categories and have no parent_ids.
-
-    Args:
-        name (string): A category name
-
-    Returns:
-        Category: A parent category
-    """
-    with current_app.app_context():
-        result = db.session.execute(select(Category)
-                                .where(Category.category_name == name)
-                                .where(Category.parent_id == None)).fetchone()
-        return result[0] if result else None
-
-def get_parent_id_from_parent_name(parent_name: str):
+def get_parent_id(parent_name: str) -> int | None:
     """Returns the parent id for a parent category by name
 
     Parent categories are the highest level categories and have no parent_ids.
@@ -52,16 +35,17 @@ def get_parent_id_from_parent_name(parent_name: str):
         name (string): A category name
 
     Returns:
-        int: category id
+        int: A category id
 
     """
     with current_app.app_context():
         result = db.session.execute(select(Category.id)
-                                  .where(Category.category_name == parent_name)
-                                  .where(Category.parent_id == None)).fetchone()
-        return result[0] if result else None
+                                  .filter_by(category_name=parent_name)
+                                  .filter_by(parent_id=None)).scalar_one_or_none()
+        
+        return result
     
-def get_id_by_name_and_parent_id(name: str, parent_id: int):
+def get_id_by_name_and_parent_id(name: str, parent_id: int|None) -> int | None:
     """Returns a category by name and parent id.
 
     Args:
@@ -69,23 +53,26 @@ def get_id_by_name_and_parent_id(name: str, parent_id: int):
         parent_id (int): The parent category id
 
     Returns:
-        Category: A category
+        Category: A category id
     """
     with current_app.app_context():
-        result = db.session.execute(select(Category.id)
-                                  .where(Category.category_name == name)
-                                  .where(Category.parent_id == parent_id)).fetchone()
-        return result[0] if result else None
+        result = db.session.execute(
+            select(Category.id)
+            .filter_by(category_name=name)
+            .filter_by(parent_id=parent_id)).scalar_one_or_none()
+        return result
 
-def save_category(category:Category):
-    """Saves a Category to the database
+def save_category(category:Category) -> int:
+    """Saves a Category to the database. If the category already exists,
+    values are updated instead.
 
     Args:
         category (Category)
 
     Returns:
-        _type_: _description_
+        _type_: The id of the object created or updated
     """
     with current_app.app_context():
-        db.session.add(category)
-        return db.session.commit()
+        result_cat = db.session.merge(category)
+        db.session.commit()
+        return result_cat.id

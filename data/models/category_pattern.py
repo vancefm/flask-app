@@ -1,11 +1,11 @@
-from data.models import db
+from . import db
 
 class CategoryPattern(db.Model):
 
     __tablename__ = 'category_patterns'
 
     id = db.Column(db.Integer, primary_key=True)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id', ondelete='CASCADE'), nullable=False)
     pattern = db.Column(db.String(100), nullable=False, unique=True)
 
     # Define relationships to other tables

@@ -1,9 +1,11 @@
-from data.models import db
+from . import db
 from sqlalchemy.schema import UniqueConstraint
 
 class Category(db.Model):
 
     __tablename__ = 'categories'
+
+    # 'Parent' categories will not have a parent id
 
     id = db.Column(db.Integer, primary_key=True)
     category_name = db.Column(db.String(25), nullable=False)

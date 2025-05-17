@@ -1,5 +1,5 @@
 from datetime import datetime
-from data.models import db
+from . import db
 
 class Transaction(db.Model):
 
@@ -12,7 +12,7 @@ class Transaction(db.Model):
     type = db.Column(db.String(15), nullable=False)
     end_balance = db.Column(db.Numeric(10,2), nullable=False)
     is_new = db.Column(db.Boolean, nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id', ondelete='SET NULL'), nullable=True)
 
     # Define relationships to other tables
     tx_category = db.relationship('Category', back_populates='ctg_transaction')
