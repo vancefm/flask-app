@@ -1,4 +1,4 @@
-from flask import current_app, render_template, Blueprint
+from flask import current_app, render_template, Blueprint, redirect
 from utils.errors.error_handler import handle_errors
 from data.models import db
 from data.models.transaction import Transaction
@@ -23,3 +23,4 @@ def transactions_page():
 @handle_errors
 def update_transaction(transaction):
     current_app.logger.info("Transaction updated.")
+    return redirect("/")

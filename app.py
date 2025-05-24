@@ -1,4 +1,4 @@
-from flask import current_app, request, render_template
+from flask import current_app, request, render_template, redirect
 from utils.errors.error_handler import handle_errors
 from utils.config_loader import ConfigLoader
 
@@ -14,7 +14,7 @@ def request_logger():
 @app.route("/")
 @handle_errors
 def root_route():
-    return render_template("test.html")
+    return redirect("/transactions")
 
 if __name__ == '__main__':
     app.run()

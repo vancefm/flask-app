@@ -28,14 +28,13 @@ def process_categories() -> None:
 
                     if category['name'] != None:
 
-                        # Parent categories do not have parent names.
-                        # Children categories do have parent name.
-                        # Check to see which one we're dealing with
+                        # Check to see if we're dealing with a parent or child category
 
                         category_id = int()
 
                         if category['parent_name'] == None:
-
+                            
+                            # Parent categories do not have parent names.
                             # This is a parent category
                             # Check if parent category exists already
                             parent_id = categories_service.get_parent_id(category['name'])
@@ -49,8 +48,9 @@ def process_categories() -> None:
                                 category_id = parent_id
                                 current_app.logger.debug(f"Parent category {category['name']} with parent id {parent_id} already exists. Skipping.")
 
-                            
                         else:
+
+                            # Children categories do have parent name.
                             # This is a child category
                             # Check if the parent category exists
                             parent_id = categories_service.get_parent_id(category['parent_name'])
